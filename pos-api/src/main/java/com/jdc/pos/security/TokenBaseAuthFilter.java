@@ -25,6 +25,7 @@ public class TokenBaseAuthFilter extends OncePerRequestFilter{
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		provider.authenticate(request.getHeader(tokenName));
+		filterChain.doFilter(request, response);
 	}
 
 }

@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jdc.pos.model.entity.Employee;
 import com.jdc.pos.model.entity.EmployeeRole;
+import com.jdc.pos.model.entity.EmployeeRole.Role;
 import com.jdc.pos.model.repo.EmployeeRepo;
 
 @Service
@@ -61,6 +62,7 @@ public class PosUserDetailsService implements UserDetailsService{
 			
 			var role = new EmployeeRole();
 			role.setEmployee(admin);
+			role.setRole(Role.Manager);
 			
 			admin.setRoles(List.of(role));
 			
