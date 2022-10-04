@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +32,7 @@ public class Employee implements Serializable {
 	private LocalDate retire;
 	private boolean pending;
 
-	@OneToMany(mappedBy = "employee")
+	@OneToMany(mappedBy = "employee", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
 	private List<EmployeeRole> roles;
 
 	public List<EmployeeRole> getRoles() {
