@@ -1,9 +1,14 @@
 package com.jdc.pos.model.dto.input;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+
 import com.jdc.pos.model.entity.Category;
 
 public record CategoryDto(
+		@NotBlank(message = "Please enter category name.")
 		String name,
+		@Min(value = 0, message = "Please select category color.")
 		int color
 ) {
 
