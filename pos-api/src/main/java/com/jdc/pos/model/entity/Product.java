@@ -1,6 +1,7 @@
 package com.jdc.pos.model.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,23 +9,35 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
-public class Product implements Serializable{
+public class Product implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column(nullable = false)
 	private String name;
-	
+
 	@ManyToOne(optional = false)
 	private Category category;
 	private String image;
 	private boolean soldOut;
+
+	@OneToMany(mappedBy = "product", orphanRemoval = true)
+	private List<ProductPrice> prices;
+
+	public List<ProductPrice> getPrices() {
+		return prices;
+	}
+
+	public void setPrices(List<ProductPrice> prices) {
+		this.prices = prices;
+	}
 
 	public int getId() {
 		return id;

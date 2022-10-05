@@ -34,7 +34,7 @@ public class PosApiSecurityConfig {
 				.cors().and()
 				.csrf().disable()
 				.authorizeRequests()
-				.mvcMatchers("/login").permitAll()
+				.mvcMatchers("/login", "/images/**").permitAll()
 				.mvcMatchers("/employee/**").hasAuthority("Manager")
 				.anyRequest().authenticated().and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
