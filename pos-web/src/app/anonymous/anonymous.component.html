@@ -1,6 +1,6 @@
 <div class="login-view vh-100 d-flex justify-content-center ">
 
-  <form class="login-form" action="">
+  <form [formGroup]="form" class="login-form" action="">
 
     <h3>Mini POS</h3>
 
@@ -14,7 +14,7 @@
       <input type="password" placeholder="Enter Password" class="form-control">
     </div>
 
-    <button class="btn btn-danger mt-3">
+    <button [attr.disabled]="!form.valid" class="btn btn-danger mt-3">
       <i class="bi-door-open me-2"></i> Login
     </button>
   </form>

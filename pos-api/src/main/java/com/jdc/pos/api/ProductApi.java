@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.jdc.pos.model.PosValidationException;
 import com.jdc.pos.model.dto.input.PriceDto;
 import com.jdc.pos.model.dto.input.ProductDto;
 import com.jdc.pos.model.dto.input.StateDto;
@@ -42,17 +45,27 @@ public class ProductApi {
 	}
 	
 	@PostMapping
-	ProductDetailsVo create(@RequestBody ProductDto dto) {
+	ProductDetailsVo create(@RequestBody @Validated ProductDto dto, BindingResult result) {
+		if(result.hasErrors()) {
+			throw new PosValidationException(result);
+		}
 		return service.create(dto);
 	}
 	
 	@PatchMapping("{id}")
-	ProductDetailsVo update(@PathVariable int id, @RequestBody ProductDto dto) {
+	ProductDetailsVo update(@PathVariable int id, @RequestBody @Validated ProductDto dto, BindingResult result) {
+		if(result.hasErrors()) {
+			throw new PosValidationException(result);
+		}
+
 		return service.update(id, dto);
 	}
 	
 	@PostMapping("{id}/price")
-	ProductDetailsVo updatePrice(@PathVariable int id, @RequestBody PriceDto dto) {
+	ProductDetailsVo updatePrice(@PathVariable int id, @RequestBody @Validated PriceDto dto, BindingResult result) {
+		if(result.hasErrors()) {
+			throw new PosValidationException(result);
+		}
 		return service.updatePrice(id, dto);
 	}
 	

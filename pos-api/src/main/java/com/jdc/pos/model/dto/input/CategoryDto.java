@@ -8,7 +8,7 @@ import com.jdc.pos.model.entity.Category;
 public record CategoryDto(
 		@NotBlank(message = "Please enter category name.")
 		String name,
-		@Min(value = 0, message = "Please select category color.")
+		@Min(value = 1, message = "Please select category color.")
 		int color
 ) {
 

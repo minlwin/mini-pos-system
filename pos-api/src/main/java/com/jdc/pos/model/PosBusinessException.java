@@ -6,7 +6,6 @@ public class PosBusinessException extends RuntimeException{
 
 	public PosBusinessException(String message) {
 		super(message);
-		// TODO Auto-generated constructor stub
 	}
 
 	

@@ -38,16 +38,26 @@ public class PosUserDetailsService implements UserDetailsService{
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return repo.findOneByEmail(username)
-				.map(e -> User.builder()
-						.username(username)
-						.password(e.getPassword())
-						.authorities(e.getRoles().stream().map(r -> r.getRole().name()).toArray(a -> new String[a]))
-						.accountExpired(null != e.getRetire() && e.getRetire().isAfter(LocalDate.now()))
-						.disabled(e.getAssign().isBefore(LocalDate.now()))
-						.accountLocked(e.isPending())
-						.build())
+		var employee = repo.findOneByEmail(username)
 				.orElseThrow(() -> new UsernameNotFoundException(username));
+		
+		var builder = User.builder();
+		
+		builder.username(username)
+			.password(employee.getPassword())
+			.roles(employee.getRoles().stream().map(r -> r.getRole().name()).toArray(i -> new String[i]));
+		
+		builder.accountLocked(employee.isPending());
+		
+		if(employee.getAssign() != null) {
+			builder.disabled(LocalDate.now().isBefore(employee.getAssign()));
+		}
+		
+		if(employee.getRetire() != null) {
+			builder.accountExpired(LocalDate.now().isAfter(employee.getRetire()));
+		}
+		
+		return builder.build();
 	}
 	
 	@EventListener(classes = ContextRefreshedEvent.class)

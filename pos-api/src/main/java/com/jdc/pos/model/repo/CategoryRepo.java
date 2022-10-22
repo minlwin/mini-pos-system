@@ -13,19 +13,21 @@ public interface CategoryRepo extends JpaRepository<Category, Integer>, JpaSpeci
 
 	@Query("""
 			select new com.jdc.pos.model.dto.output.CategoryVo(c.id, c.name, c.color, count(p)) 
-			from Category c join c.product p where c.id = :id
+			from Category c left join c.product p where c.id = :id 
+			group by c.id, c.name, c.color
 			""")
 	CategoryVo findVoById(int id);
 	
 	@Query("""
 			select new com.jdc.pos.model.dto.output.CategoryVo(c.id, c.name, c.color, count(p)) 
-			from Category c join c.product p
+			from Category c left join c.product p group by c.id, c.name, c.color
 			""")
 	List<CategoryVo> findAllVo();
 	
 	@Query("""
 			select new com.jdc.pos.model.dto.output.CategoryVo(c.id, c.name, c.color, count(p)) 
-			from Category c join c.product p where lower(c.name) = lower(:name) 
+			from Category c left join c.product p where lower(c.name) = lower(:name) 
+			group by c.id, c.name, c.color
 			""")
 	List<CategoryVo> findVoByNameStart(String name);
 	
