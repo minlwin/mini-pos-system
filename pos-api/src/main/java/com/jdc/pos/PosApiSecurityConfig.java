@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -16,7 +15,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.jdc.pos.security.TokenBaseAuthFilter;
 
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class PosApiSecurityConfig {
 	
 	@Autowired
@@ -33,9 +31,9 @@ public class PosApiSecurityConfig {
 		return http
 				.cors().and()
 				.csrf().disable()
-				.authorizeRequests()
-				.mvcMatchers("/login", "/images/**").permitAll()
-				.mvcMatchers("/employee/**").hasAuthority("Manager")
+				.authorizeHttpRequests()
+				.requestMatchers("/login", "/images/**").permitAll()
+				.requestMatchers("/employee/**").hasAuthority("Manager")
 				.anyRequest().authenticated().and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()

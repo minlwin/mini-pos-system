@@ -1,6 +1,6 @@
 package com.jdc.pos.model.dto.input;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 public record ChangePassDto(
 		@NotBlank(message = "Please enter old password.")

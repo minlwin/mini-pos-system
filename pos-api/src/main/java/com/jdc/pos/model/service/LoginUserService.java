@@ -1,7 +1,5 @@
 package com.jdc.pos.model.service;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.jdc.pos.model.dto.input.LoginDto;
 import com.jdc.pos.model.dto.output.LoginResult;
 import com.jdc.pos.model.repo.EmployeeRepo;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class LoginUserService {

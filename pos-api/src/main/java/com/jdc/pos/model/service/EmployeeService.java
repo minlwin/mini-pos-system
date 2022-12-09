@@ -3,8 +3,6 @@ package com.jdc.pos.model.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,6 +17,8 @@ import com.jdc.pos.model.dto.output.MessageResult;
 import com.jdc.pos.model.entity.Employee;
 import com.jdc.pos.model.entity.EmployeeRole.Role;
 import com.jdc.pos.model.repo.EmployeeRepo;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class EmployeeService {

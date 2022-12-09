@@ -1,6 +1,6 @@
 package com.jdc.pos.model.dto.input;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 public record LoginDto(
 		@NotBlank(message = "Please enter email for login.")

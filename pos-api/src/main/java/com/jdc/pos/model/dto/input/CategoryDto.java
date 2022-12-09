@@ -1,9 +1,9 @@
 package com.jdc.pos.model.dto.input;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-
 import com.jdc.pos.model.entity.Category;
+
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 public record CategoryDto(
 		@NotBlank(message = "Please enter category name.")
